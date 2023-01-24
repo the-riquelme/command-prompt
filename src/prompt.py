@@ -1,13 +1,19 @@
-import platform
-
+# commands
 from commands import *
 
 # prompt
-comando = ""
-while comando != "exit":
-    comando = input("/> ")
+command = ''
+while command != 'exit':
+    commands = input('/> ').split(' ')
+    command = commands[0]
 
-    if comando == "dir":
-        dir(comando)
-    elif comando != "exit":
-        print("Comando Invalido!")
+    if command == 'exit':
+        break
+
+    if (len(commands) == 2):
+        directory = commands[1]
+
+        if command == 'dir':
+            dir(directory)
+    else:
+        print('Command Invalid!')
