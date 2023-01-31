@@ -92,3 +92,15 @@ def cp(src, dst):
             print(f'{abs_src} not a file')
     except FileExistsError:
         print('File already exists in the destination')
+
+
+def mv(src, dst):
+    abs_src = os.path.abspath(src)
+    abs_dst = os.path.abspath(dst)
+
+    if os.path.isfile(abs_src):
+        os.rename(abs_src, abs_dst)
+    elif os.path.isdir(abs_src):
+        os.rename(abs_src, abs_dst)
+    else:
+        print(f'{abs_src} not a file or directory')
