@@ -43,6 +43,8 @@ while command != 'exit':
             cd(param)
         if command == 'mkdir':
             mkdir(param)
+        if command == 'touch':
+            touch(param)
         else:
             print('Command Invalid!')
     else:

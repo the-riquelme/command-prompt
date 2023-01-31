@@ -110,3 +110,11 @@ def mv(src, dst):
 def seeOS():
     print(platform.system())
     print(platform.release())
+
+
+def touch(path):
+    if os.path.exists(path):
+        print(f"File {path} already exists.")
+    else:
+        with open(path, "w"):
+            pass
