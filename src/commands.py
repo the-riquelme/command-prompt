@@ -46,3 +46,14 @@ def cd(path):
         print(f'Directory "{path}" not found')
     except PermissionError:
         print(f'No permission to access "{path}"')
+
+
+def mkdir(path):
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        print(f'Directory "{path}" already exists')
+    except PermissionError:
+        print(f'No permission to create "{path}"')
+    except Exception:
+        print('Command Invalid!')

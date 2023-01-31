@@ -17,12 +17,14 @@ while command != 'exit':
             print('Command Invalid!')
             continue
 
-        if command == 'dir':
+        if command == 'dir' or command == 'ls':
             dir(param)
         if command == 'cat':
             cat(param)
         if command == 'cd':
             cd(param)
+        if command == 'mkdir':
+            mkdir(param)
         else:
             print('Command Invalid!')
     else:
