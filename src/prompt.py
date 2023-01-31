@@ -10,11 +10,11 @@ while command != 'exit':
     if command == 'exit':
         break
 
-    if command == 'seeOS' or command == 'ver':
+    if command == 'clear':
+        clear()
+    elif command == 'seeOS' or command == 'ver':
         seeOS()
-        continue
-
-    if (len(commands) >= 2):
+    elif (len(commands) >= 2):
         param = commands[1]
 
         if param == '':

@@ -144,3 +144,7 @@ def edit(path):
         else:
             print('File not exists')
             break
+
+
+def clear():
+    os.system('clear')
