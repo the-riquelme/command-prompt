@@ -34,3 +34,15 @@ def cat(path):
             print(f'File "{path}" is blocked by another program')
         else:
             raise
+
+
+def cd(path):
+    try:
+        if os.path.isdir(path):
+            os.chdir(path)
+        else:
+            print('Directory not found')
+    except FileNotFoundError:
+        print(f'Directory "{path}" not found')
+    except PermissionError:
+        print(f'No permission to access "{path}"')

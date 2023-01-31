@@ -21,6 +21,8 @@ while command != 'exit':
             dir(param)
         if command == 'cat':
             cat(param)
+        if command == 'cd':
+            cd(param)
         else:
             print('Command Invalid!')
     else:
