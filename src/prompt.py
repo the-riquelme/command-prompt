@@ -10,11 +10,21 @@ while command != 'exit':
     if command == 'exit':
         break
 
-    if (len(commands) == 2):
+    if (len(commands) >= 2):
         param = commands[1]
 
         if param == '':
             print('Command Invalid!')
+            continue
+
+        if len(commands) >= 3:
+            param2 = commands[2]
+
+            if command == 'rm':
+                rm(param2, param)
+            else:
+                print('Command Invalid!')
+
             continue
 
         if command == 'dir' or command == 'ls':

@@ -1,6 +1,7 @@
 import os
 import errno
 import fcntl
+import shutil
 
 
 def dir(directory):
@@ -57,3 +58,20 @@ def mkdir(path):
         print(f'No permission to create "{path}"')
     except Exception:
         print('Command Invalid!')
+
+
+def rm(path, param):
+    path = os.path.abspath(path)
+
+    if os.path.isfile(path) and (param == '-a'):
+        try:
+            os.remove(path)
+        except PermissionError:
+            print(f'Sem permissão para apagar "{path}"')
+    elif os.path.isdir(path) and param == '-d':
+        try:
+            shutil.rmtree(path)
+        except PermissionError:
+            print(f'Sem permissão para apagar "{path}"')
+    else:
+        print(f'{path} não é um arquivo ou diretório')
