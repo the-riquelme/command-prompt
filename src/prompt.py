@@ -22,6 +22,8 @@ while command != 'exit':
 
             if command == 'rm':
                 rm(param2, param)
+            if command == 'cp':
+                cp(param, param2)
             else:
                 print('Command Invalid!')
 

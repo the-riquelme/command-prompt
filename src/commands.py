@@ -74,4 +74,21 @@ def rm(path, param):
         except PermissionError:
             print(f'Sem permissão para apagar "{path}"')
     else:
-        print(f'{path} não é um arquivo ou diretório')
+        print(f'{path} not a file or directory')
+
+
+def cp(src, dst):
+    abs_src = os.path.abspath(src)
+    abs_dst = os.path.abspath(dst)
+    abs_dst_verification = os.path.join(abs_dst, os.path.basename(abs_src))
+
+    if os.path.exists(abs_dst_verification):
+        print(f'{abs_dst_verification} already exists')
+
+    try:
+        if os.path.isfile(abs_src):
+            shutil.copy2(abs_src, abs_dst)
+        else:
+            print(f'{abs_src} not a file')
+    except FileExistsError:
+        print('File already exists in the destination')
