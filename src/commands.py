@@ -2,6 +2,7 @@ import os
 import errno
 import fcntl
 import shutil
+import platform
 
 
 def dir(directory):
@@ -104,3 +105,8 @@ def mv(src, dst):
         os.rename(abs_src, abs_dst)
     else:
         print(f'{abs_src} not a file or directory')
+
+
+def seeOS():
+    print(platform.system())
+    print(platform.release())

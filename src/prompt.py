@@ -10,6 +10,10 @@ while command != 'exit':
     if command == 'exit':
         break
 
+    if command == 'seeOS' or command == 'ver':
+        seeOS()
+        continue
+
     if (len(commands) >= 2):
         param = commands[1]
 
