@@ -19,32 +19,29 @@ while command != 'exit':
 
         if param == '':
             print('Command Invalid!')
-            continue
-
-        if len(commands) >= 3:
+        elif len(commands) >= 3:
             param2 = commands[2]
 
             if command == 'rm':
                 rm(param2, param)
-            if command == 'cp':
+            elif command == 'cp':
                 cp(param, param2)
-            if command == 'mv':
+            elif command == 'mv':
                 mv(param, param2)
             else:
                 print('Command Invalid!')
-
-            continue
-
-        if command == 'dir' or command == 'ls':
+        elif command == 'dir' or command == 'ls':
             dir(param)
-        if command == 'cat':
+        elif command == 'cat':
             cat(param)
-        if command == 'cd':
+        elif command == 'cd':
             cd(param)
-        if command == 'mkdir':
+        elif command == 'mkdir':
             mkdir(param)
-        if command == 'touch':
+        elif command == 'touch':
             touch(param)
+        elif command == 'edit':
+            edit(param)
         else:
             print('Command Invalid!')
     else:

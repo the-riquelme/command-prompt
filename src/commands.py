@@ -3,6 +3,7 @@ import errno
 import fcntl
 import shutil
 import platform
+import time
 
 
 def dir(directory):
@@ -118,3 +119,28 @@ def touch(path):
     else:
         with open(path, "w"):
             pass
+
+
+def edit(path):
+    path = os.path.abspath(path)
+    while True:
+        if os.path.exists(path):
+            try:
+                os.system('clear')
+
+                with open(path, "r+") as file:
+                    fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    text = file.read()
+
+                    print(text)
+                    text += input()
+
+                    file.seek(0)
+                    file.write(text)
+                    break
+            except IOError:
+                print(f"File {path} is blocked by another process. Waiting...")
+                time.sleep(1)
+        else:
+            print('File not exists')
+            break
