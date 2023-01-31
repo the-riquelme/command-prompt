@@ -62,15 +62,41 @@ def mkdir(path):
         print('Command Invalid!')
 
 
+def seeOS():
+    print(platform.system())
+    print(platform.release())
+
+
+def touch(path):
+    if os.path.exists(path):
+        print(f"File {path} already exists.")
+    else:
+        with open(path, "w"):
+            pass
+
+
+def lock_file(path):
+    while True:
+        try:
+            with open(path, "r+") as file:
+                fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                return file
+        except IOError:
+            print(f"File {path} is blocked by another process. Waiting...")
+            time.sleep(1)
+
+
 def rm(path, param):
     path = os.path.abspath(path)
 
     if os.path.isfile(path) and (param == '-a'):
+        file = lock_file(path)
         try:
             os.remove(path)
         except PermissionError:
             print(f'Sem permissão para apagar "{path}"')
     elif os.path.isdir(path) and param == '-d':
+        file = lock_file(path)
         try:
             shutil.rmtree(path)
         except PermissionError:
@@ -87,6 +113,7 @@ def cp(src, dst):
     if os.path.exists(abs_dst_verification):
         print(f'{abs_dst_verification} already exists')
 
+    file = lock_file(abs_src)
     try:
         if os.path.isfile(abs_src):
             shutil.copy2(abs_src, abs_dst)
@@ -100,6 +127,7 @@ def mv(src, dst):
     abs_src = os.path.abspath(src)
     abs_dst = os.path.abspath(dst)
 
+    file = lock_file(abs_src)
     if os.path.isfile(abs_src):
         os.rename(abs_src, abs_dst)
     elif os.path.isdir(abs_src):
@@ -108,41 +136,26 @@ def mv(src, dst):
         print(f'{abs_src} not a file or directory')
 
 
-def seeOS():
-    print(platform.system())
-    print(platform.release())
-
-
-def touch(path):
-    if os.path.exists(path):
-        print(f"File {path} already exists.")
-    else:
-        with open(path, "w"):
-            pass
-
-
 def edit(path):
     path = os.path.abspath(path)
+
     while True:
         if os.path.exists(path):
-            try:
-                os.system('clear')
+            file = lock_file(path)
+            os.system('clear')
 
-                with open(path, "r+") as file:
-                    fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                    text = file.read()
+            with open(path, "r+") as file:
+                fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                text = file.read()
 
-                    print(text)
-                    text += input()
+                print(text)
+                text += input()
 
-                    file.seek(0)
-                    file.write(text)
-                    break
-            except IOError:
-                print(f"File {path} is blocked by another process. Waiting...")
-                time.sleep(1)
+                file.seek(0)
+                file.write(text)
+                break
         else:
-            print('File not exists')
+            print(f"File {path} does not exist.")
             break
 
 
